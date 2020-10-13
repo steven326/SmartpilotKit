@@ -1,6 +1,6 @@
 //
-//  YJBaseRequest.h
-//  YangJiang
+//  SPBaseRequest.h
+//  SmartpilotKit
 //
 //  Created by 王泽平 on 2019/8/5.
 //  Copyright © 2019 smartpilot. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
-#import "YJRequestDataManager.h"
+#import "SPHTTPSessionManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionDataTask *)processServiceRequestUpload:(nullable NSDictionary *)dictReqParameters
                                            requestURL:(NSString *)requestURL
                                              fileName:(NSString *)fileName
-                                             mimeType:(YJFileMimeType)mimeType
+                                             mimeType:(SPFileMimeType)mimeType
                                                  data:(NSData *)data
                                          successBlock:(void (^)(id responseObject))successBlock
                                          failureBlock:(void (^)(NSError *error))failureBlock;

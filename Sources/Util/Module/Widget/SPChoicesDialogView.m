@@ -32,15 +32,14 @@
     [super traitCollectionDidChange:previousTraitCollection];
     if (@available(iOS 13.0, *)) {
         if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
-            self.backgroundColor = YJDarkModeFactory.shareInstance.dialogBackgroundColor;
-            _contentLabel.textColor = YJDarkModeFactory.shareInstance.navigationBarTintColor;
-            
+            self.backgroundColor = SPDarkModeUtil.dialogBackgroundColor;
+            _contentLabel.textColor = SPDarkModeUtil.normalTextColor;
             [_actions enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [obj setTitleColor:YJDarkModeFactory.shareInstance.navigationBarTintColor forState:UIControlStateNormal];
-                [obj setTitleColor:[YJDarkModeFactory.shareInstance.navigationBarTintColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
+                [obj setTitleColor:SPDarkModeUtil.normalTextColor forState:UIControlStateNormal];
+                [obj setTitleColor:[SPDarkModeUtil.normalTextColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
             }];
         }
-    } 
+    }
 }
 
 - (void)awakeFromNib
@@ -51,75 +50,76 @@
     
     _actions = @[_cancelButton, _confirmButton, _forceCloseButton, _forceConfirmButton];
     
-    WS(weakSelf);
+    @weakify(self);
     
     /// 强制确认
     _forceConfirmButton.hidden = true;
     [_forceConfirmButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickConfirmHandler) {
-            weakSelf.clickConfirmHandler();
+        @strongify(self);
+        if (self.clickConfirmHandler) {
+            self.clickConfirmHandler();
         }
     }];
     
     /// 强制取消
     _forceCloseButton.hidden = true;
     [_forceCloseButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickCancelHandler) {
-            weakSelf.clickCancelHandler();
+        @strongify(self);
+        if (self.clickCancelHandler) {
+            self.clickCancelHandler();
         }
     }];
     
     /// 取消
     [_cancelButton setTitleColor:[_cancelButton.currentTitleColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
     [_cancelButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickCancelHandler) {
-            weakSelf.clickCancelHandler();
+        @strongify(self);
+        if (self.clickCancelHandler) {
+            self.clickCancelHandler();
         }
     }];
     
     /// 确认
     [_confirmButton setTitleColor:[_confirmButton.currentTitleColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
     [_confirmButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickConfirmHandler) {
-            weakSelf.clickConfirmHandler();
+        @strongify(self);
+        if (self.clickConfirmHandler) {
+            self.clickConfirmHandler();
         }
     }];
     
     /// 我知道了
-    [_knownButton yj_blue_setTitle:@"我知道了" font:[UIFont systemFontOfSize:18 weight:UIFontWeightSemibold] size:CGSizeZero];
+//    [_knownButton yj_blue_setTitle:@"我知道了" font:[UIFont systemFontOfSize:18 weight:UIFontWeightSemibold] size:CGSizeZero];
     [_knownButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickConfirmHandler) {
-            weakSelf.clickConfirmHandler();
+        @strongify(self);
+        if (self.clickConfirmHandler) {
+            self.clickConfirmHandler();
         }
     }];
     
     /// 取消
     [_knownCancelButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if (weakSelf.clickCancelHandler) {
-            weakSelf.clickCancelHandler();
+        @strongify(self);
+        if (self.clickCancelHandler) {
+            self.clickCancelHandler();
         }
     }];
     
     _contentLabel = [[UILabel alloc] init];
     _contentLabel.numberOfLines = 0;
     _contentLabel.font = [UIFont systemFontOfSize:16.f];
-    _contentLabel.textColor = YJDarkModeFactory.shareInstance.navigationBarTintColor;
     _contentLabel.textAlignment = NSTextAlignmentCenter;
     _contentLabel.backgroundColor = UIColor.clearColor;
     [_contentView addSubview:_contentLabel];
     
-    ///
-    self.backgroundColor = YJDarkModeFactory.shareInstance.dialogBackgroundColor;
+    /// 暗黑模式颜色适配
+    self.backgroundColor = SPDarkModeUtil.dialogBackgroundColor;
+    _contentLabel.textColor = SPDarkModeUtil.normalTextColor;
     [_actions enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj setTitleColor:YJDarkModeFactory.shareInstance.navigationBarTintColor forState:UIControlStateNormal];
-        [obj setTitleColor:[YJDarkModeFactory.shareInstance.navigationBarTintColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
+        [obj setTitleColor:SPDarkModeUtil.normalTextColor forState:UIControlStateNormal];
+        [obj setTitleColor:[SPDarkModeUtil.normalTextColor colorWithAlphaComponent:.7] forState:UIControlStateHighlighted];
     }];
 }
-
-//- (void)layoutSubviews
-//{
-//    [super layoutSubviews];
-//}
 
 - (void)setIsForceConfirm:(BOOL)isForceConfirm
 {
@@ -175,7 +175,7 @@
     _contentLabel.textAlignment = NSTextAlignmentCenter;
     
     ///layout
-    CGFloat contentHeight = [YJUtils getContentSizeWithText:attributeContent.string
+    CGFloat contentHeight = [SPUtils getContentSizeWithText:attributeContent.string
                                                        size:CGSizeMake(kScreenWidth - 15.f*2 - 30.f*2, 0)
                                                    fontSize:16.f
                                                 lineSpacing:5].height + 10;
@@ -186,13 +186,13 @@
     }];
     _contentViewHeight.constant = contentHeight;
     
-    if (self.type == YJChoicesDialogViewTypeTextOnly) {
+    if (self.type == SPChoicesDialogViewTypeTextOnly) {
         self.height = 160.f - 62.f + contentHeight - 20.f;
     }
-    else if (self.type == YJChoicesDialogViewTypeTextKnown) {
+    else if (self.type == SPChoicesDialogViewTypeTextKnown) {
         self.height = 300.f - 62.f + contentHeight - 20.f;
     }
-    else if (self.type == YJChoicesDialogViewTypeTextKnownCancel) {
+    else if (self.type == SPChoicesDialogViewTypeTextKnownCancel) {
         self.height = 340.f - 62.f + contentHeight - 20.f;
     }
     else {
@@ -210,7 +210,7 @@
     [_contentView addSubview:customView];
     _contentViewHeight.constant = customView.height;
     self.width = customView.width >= (kScreenWidth - 15.f*2) ? (kScreenWidth - 15.f*2) : customView.width;
-    self.height = (self.type == YJChoicesDialogViewTypeCustomViewKnown ? 100.f : 78.f) + _contentViewHeight.constant;
+    self.height = (self.type == SPChoicesDialogViewTypeCustomViewKnown ? 100.f : 78.f) + _contentViewHeight.constant;
 }
 
 - (void)setAttributeContent:(NSAttributedString *)attribute customView:(UIView *)customView
@@ -224,13 +224,13 @@
     self.height = 280.f - 62.f + _contentViewHeight.constant;
 }
 
-- (void)setType:(YJChoicesDialogViewType)type
+- (void)setType:(SPChoicesDialogViewType)type
 {
     _type = type;
     switch (type) {
-        case YJChoicesDialogViewTypeText:
-        case YJChoicesDialogViewTypeTextKnown:
-        case YJChoicesDialogViewTypeTextKnownCancel:
+        case SPChoicesDialogViewTypeText:
+        case SPChoicesDialogViewTypeTextKnown:
+        case SPChoicesDialogViewTypeTextKnownCancel:
         {
             _iconImgViewHeight.constant = 100;
             _iconImgViewTop.constant = 30;
@@ -240,7 +240,7 @@
                 make.right.equalTo(self->_contentView).offset(-30);
             }];
             switch (type) {
-                case YJChoicesDialogViewTypeTextKnown:
+                case SPChoicesDialogViewTypeTextKnown:
                 {
                     _cancelButton.hidden = true;
                     _confirmButton.hidden = true;
@@ -249,7 +249,7 @@
                     _knownCancelButton.hidden = true;
                 }
                     break;
-                case YJChoicesDialogViewTypeTextKnownCancel:
+                case SPChoicesDialogViewTypeTextKnownCancel:
                 {
                     _cancelButton.hidden = true;
                     _confirmButton.hidden = true;
@@ -263,13 +263,13 @@
             }
         }
             break;
-        case YJChoicesDialogViewTypeCustomView:
+        case SPChoicesDialogViewTypeCustomView:
         {
             _iconImgViewHeight.constant = 0;
             _iconImgViewTop.constant = 0;
         }
             break;
-        case YJChoicesDialogViewTypeCustomViewKnown:
+        case SPChoicesDialogViewTypeCustomViewKnown:
         {
             _iconImgViewHeight.constant = 0;
             _iconImgViewTop.constant = 0;
@@ -280,7 +280,7 @@
             _knownCancelButton.hidden = true;
         }
             break;
-        case YJChoicesDialogViewTypeTextOnly:
+        case SPChoicesDialogViewTypeTextOnly:
         {
             _iconImgViewHeight.constant = 0;
             _iconImgViewTop.constant = 0;
@@ -291,7 +291,7 @@
             }];
         }
             break;
-        case YJChoicesDialogViewTypeTextAndCustomView:
+        case SPChoicesDialogViewTypeTextAndCustomView:
         {
             _iconImgViewHeight.constant = 100;
             _iconImgViewTop.constant = 30;

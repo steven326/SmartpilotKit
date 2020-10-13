@@ -30,9 +30,9 @@
     
     if (@available(iOS 13.0, *)) {
         if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
-            self.backgroundColor = YJDarkModeFactory.shareInstance.momentSepratorColor;
-            self.textView.textColor = YJDarkModeFactory.shareInstance.xinyuTextColor;
-            self.textView.backgroundColor = YJDarkModeFactory.shareInstance.momentCellBackgroundColor;
+            self.backgroundColor = SPDarkModeUtil.momentSepratorColor;
+            self.textView.textColor = SPDarkModeUtil.normalTextColor;
+            self.textView.backgroundColor = SPDarkModeUtil.momentCellBackgroundColor;
         }
     }
 }
@@ -58,9 +58,9 @@
 - (void)_initUI
 {
     self.previousTextViewHeight = 36;
-    self.backgroundColor = YJDarkModeFactory.shareInstance.momentSepratorColor;
-    self.textView.textColor = YJDarkModeFactory.shareInstance.xinyuTextColor;
-    self.textView.backgroundColor = YJDarkModeFactory.shareInstance.momentCellBackgroundColor;
+    self.backgroundColor = SPDarkModeUtil.momentSepratorColor;
+    self.textView.textColor = SPDarkModeUtil.normalTextColor;
+    self.textView.backgroundColor = SPDarkModeUtil.momentCellBackgroundColor;
     [self addSubview:self.textView];
     [self addSubview:self.sendButton];
 }
@@ -237,7 +237,8 @@
 {
     if (!_sendButton) {
         _sendButton = [[UIButton alloc] init];
-        [_sendButton yj_blue_setTitle:@"发送" font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] size:CGSizeZero];
+        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        _sendButton.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
         _sendButton.enabled = NO;
     }
     return _sendButton;

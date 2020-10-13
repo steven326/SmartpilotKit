@@ -32,6 +32,7 @@
 #import "UIImageView+WebCache.h"
 #import <YBImageBrowser/YBImageBrowser.h>
 #import <YBImageBrowser/YBIBVideoData.h>
+
 @interface SDWeiXinPhotoContainerView () 
 
 @property (nonatomic, strong) NSArray *imageViewsArray;
@@ -185,7 +186,7 @@
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap
 {
-    [YJUtils dismissKeyboard];
+    [SPUtils dismissKeyboard];
     NSMutableArray *dataSourceArray = @[].mutableCopy;
     [self.pictures enumerateObjectsUsingBlock:^(MomentsPicturesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.photo hasSuffix:@".mp4"]) {
@@ -205,7 +206,7 @@
             [dataSourceArray addObject:data];
         }
     }];
-    [YJUtils showImageBrowserWithDataSourceArray:dataSourceArray currentPage:tap.view.tag];
+    [SPUtils showImageBrowserWithDataSourceArray:dataSourceArray currentPage:tap.view.tag];
 }
 
 - (CGFloat)itemWidthForPicPathArray:(NSArray *)array

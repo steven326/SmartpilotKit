@@ -27,7 +27,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "YJMomentsRequest.h"
+#import "SPMomentRequest.h"
 
 @interface SDTimeLineCellCommentView : UIView
 

@@ -1,6 +1,6 @@
 //
-//  YJBaseRequest.m
-//  YangJiang
+//  SPBaseRequest.m
+//  SmartpilotKit
 //
 //  Created by 王泽平 on 2019/8/5.
 //  Copyright © 2019 smartpilot. All rights reserved.
@@ -8,6 +8,8 @@
 
 #import "SPBaseRequest.h"
 #import "UIDevice+IdentifierAddition.h"
+#import "AESCipher.h"
+#import "SPCacheUtil.h"
 @implementation SPBaseRequest
 
 - (void)cancel
@@ -40,7 +42,7 @@
                 if (responseObject && responseObject[@"error"] && responseObject[@"error"][@"message"]) {
                     if (![responseObject[@"error"][@"message"] isKindOfClass:NSNull.class]
                         && [responseObject[@"error"][@"message"] isNotBlank]) {
-                        [YJUtils showToastWithMessage:responseObject[@"error"][@"message"]];
+                        [SPUtils showToastWithMessage:responseObject[@"error"][@"message"]];
                     }
                 }
             }
@@ -48,7 +50,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"AF Net fail block - error[%@]",[error localizedDescription]);
         NSLog(@"requestURL : %@ \n Parameters: %@", requestURL,dictReqParameters);
-        NSDictionary *dict = [YJUtils errorMessageDictWithError:error];
+        NSDictionary *dict = [self errorMessageDictWithError:error];
         if (dict)
         {
             NSLog(@"AF Error = %@", dict);
@@ -60,7 +62,7 @@
         }
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         if (response.statusCode != 404) {
-            [YJUtils showToastWithStatusCode:(long)response.statusCode];
+            [SPUtils showToastWithStatusCode:(long)response.statusCode];
         }
     }];
     return task;
@@ -90,7 +92,7 @@
                 if (responseObject && responseObject[@"error"] && responseObject[@"error"][@"message"]) {
                     if (![responseObject[@"error"][@"message"] isKindOfClass:NSNull.class]
                         && [responseObject[@"error"][@"message"] isNotBlank]) {
-                        [YJUtils showToastWithMessage:responseObject[@"error"][@"message"]];
+                        [SPUtils showToastWithMessage:responseObject[@"error"][@"message"]];
                         NSError *bError = [NSError errorWithDomain:@"businessError" code:[responseObject[@"error"][@"code"] intValue] userInfo:@{}];
                         failureBlock(bError);
                         return;
@@ -102,7 +104,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"AF Net fail block - error[%@]",[error localizedDescription]);
         NSLog(@"requestURL : %@ \n Parameters: %@", requestURL,dictReqParameters);
-        NSDictionary *dict = [YJUtils errorMessageDictWithError:error];
+        NSDictionary *dict = [self errorMessageDictWithError:error];
         if (dict) {
             NSLog(@"AF Error = %@", dict);
             failureBlock(error);
@@ -112,7 +114,7 @@
         }
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         if (response.statusCode != 404) {
-            [YJUtils showToastWithStatusCode:(long)response.statusCode];
+            [SPUtils showToastWithStatusCode:(long)response.statusCode];
         }
     }];
     return task;
@@ -140,7 +142,7 @@
             if (responseObject && responseObject[@"error"] && responseObject[@"error"][@"message"]) {
                 if (![responseObject[@"error"][@"message"] isKindOfClass:NSNull.class]
                     && [responseObject[@"error"][@"message"] isNotBlank]) {
-                    [YJUtils showToastWithMessage:responseObject[@"error"][@"message"]];
+                    [SPUtils showToastWithMessage:responseObject[@"error"][@"message"]];
                     NSError *bError = [NSError errorWithDomain:@"businessError" code:[responseObject[@"error"][@"code"] intValue] userInfo:@{}];
                     failureBlock(bError);
                     return;
@@ -151,7 +153,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"AF Net fail block - error[%@]",[error localizedDescription]);
         NSLog(@"requestURL : %@ \n Parameters: %@", requestURL,dictReqParameters);
-        NSDictionary *dict = [YJUtils errorMessageDictWithError:error];
+        NSDictionary *dict = [self errorMessageDictWithError:error];
         if (dict) {
             NSLog(@"AF Error = %@", dict);
             NSError *bError = [NSError errorWithDomain:@"businessError" code:10000 userInfo:dict];
@@ -162,7 +164,7 @@
         }
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         if (response.statusCode != 404) {
-            [YJUtils showToastWithStatusCode:(long)response.statusCode];
+            [SPUtils showToastWithStatusCode:(long)response.statusCode];
         }
     }];
     return task;
@@ -190,7 +192,7 @@
             if (responseObject && responseObject[@"error"] && responseObject[@"error"][@"message"]) {
                 if (![responseObject[@"error"][@"message"] isKindOfClass:NSNull.class]
                     && [responseObject[@"error"][@"message"] isNotBlank]) {
-                    [YJUtils showToastWithMessage:responseObject[@"error"][@"message"]];
+                    [SPUtils showToastWithMessage:responseObject[@"error"][@"message"]];
                     NSError *bError = [NSError errorWithDomain:@"businessError" code:[responseObject[@"error"][@"code"] intValue] userInfo:@{}];
                     failureBlock(bError);
                     return;
@@ -202,7 +204,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"AF Net fail block - error[%@]",[error localizedDescription]);
         NSLog(@"requestURL : %@ \n Parameters: %@", requestURL,dictReqParameters);
-        NSDictionary *dict = [YJUtils errorMessageDictWithError:error];
+        NSDictionary *dict = [self errorMessageDictWithError:error];
         if (dict) {
             NSLog(@"AF Error = %@", dict);
             NSError *bError = [NSError errorWithDomain:@"businessError" code:10000 userInfo:dict];
@@ -213,7 +215,7 @@
         }
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         if (response.statusCode != 404) {
-            [YJUtils showToastWithStatusCode:(long)response.statusCode];
+            [SPUtils showToastWithStatusCode:(long)response.statusCode];
         }
     }];
     return task;
@@ -223,14 +225,14 @@
 - (NSURLSessionDataTask *)processServiceRequestUpload:(nullable NSDictionary *)dictReqParameters
                                            requestURL:(NSString *)requestURL
                                              fileName:(NSString *)fileName
-                                             mimeType:(YJFileMimeType)mimeType
+                                             mimeType:(SPFileMimeType)mimeType
                                                  data:(NSData *)data
                                          successBlock:(void (^)(id responseObject))successBlock
                                          failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSURLSessionDataTask *task = [self.manager POST:requestURL parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *mimeTypeStr = @"image/png";
-        if (mimeType == YJFileMimeTypePDF) {
+        if (mimeType == SPFileMimeTypePDF) {
             mimeTypeStr = @"application/pdf";
         }
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mimeTypeStr];
@@ -262,7 +264,7 @@
             progressBlock(1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
         }
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        NSString *legalFilename = [YJUtils legalFileNameWithName:response.suggestedFilename path:PATH_CACHE];
+        NSString *legalFilename = [SPUtils legalFileNameWithName:response.suggestedFilename path:PATH_CACHE];
         NSString *fullpath = [PATH_CACHE stringByAppendingPathComponent:legalFilename];
         NSURL *filePathUrl = [NSURL fileURLWithPath:fullpath];
         return filePathUrl;
@@ -304,7 +306,7 @@
 - (void)appendRequestHeaderWithRequestUrl:(NSString *)requestUrl
 {
     /// AES加密时间戳
-    NSString *aes_timestamp = aesEncryptString(@((long)(NSDate.date.timeIntervalSince1970*1000+YJCacheManager.shareInstance.serverTimeInterval)).stringValue, AES_KEY);
+    NSString *aes_timestamp = aesEncryptString(@((long)(NSDate.date.timeIntervalSince1970*1000+SPCacheUtil.shared.serverTimeInterval)).stringValue, AES_KEY);
     [self.manager.requestSerializer setValue:aes_timestamp forHTTPHeaderField:@"x-timestamp"];
     /// 请求id ( {请求url}_{设备唯一标识}_{当前时间秒} )
     NSMutableString *requestId = @"".mutableCopy;
@@ -316,10 +318,23 @@
     [self.manager.requestSerializer setValue:requestId forHTTPHeaderField:@"x-request-id"];
 }
 
+- (NSDictionary *)errorMessageDictWithError:(NSError *)error
+{
+    NSDictionary *dict = nil;
+    NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+    if (errorData) {
+        dict = [NSJSONSerialization JSONObjectWithData:errorData options:0 error:nil];
+        if (![dict isKindOfClass:[NSDictionary class]]) {
+            dict = nil;
+        }
+    }
+    return dict;
+}
+
 - (AFHTTPSessionManager *)manager
 {
     if (!_manager) {
-        _manager = [YJRequestDataManager sharedNetworkManager];
+        _manager = [SPHTTPSessionManager sharedManager];
     }
     return _manager;
 }

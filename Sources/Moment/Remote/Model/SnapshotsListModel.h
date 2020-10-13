@@ -40,10 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *user_site;
 ///视频
 @property (nonatomic, strong) NSString *vedio;
+
 /// 格式化后的时间
 @property (nonatomic, strong) NSString *format_time;
-
+/// 是否展开
 @property (nonatomic, assign) BOOL isOpening;
+/// 是否显示全部按钮
 @property (nonatomic, assign, readonly) BOOL shouldShowMoreButton;
 
 @end

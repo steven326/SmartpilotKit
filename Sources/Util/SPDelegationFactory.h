@@ -6,10 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPDelegationProxy.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPDelegationFactory : NSObject
+
++ (SPDelegationProxy *)dataSourceProxy;
++ (SPDelegationProxy *)delegateProxy;
 
 @end
 

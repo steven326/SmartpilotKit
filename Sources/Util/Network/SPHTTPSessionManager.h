@@ -11,6 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPHTTPSessionManager : AFHTTPSessionManager
 
++ (AFHTTPSessionManager *)sharedManager;
+
++ (NSString *)baseUrl;
++ (NSString *)baseQiNiuUrl;
+
 @end
 
 NS_ASSUME_NONNULL_END

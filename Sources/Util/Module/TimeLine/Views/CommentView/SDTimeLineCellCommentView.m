@@ -28,7 +28,6 @@
 
 #import "SDTimeLineCellCommentView.h"
 #import "UIView+SDAutoLayout.h"
-#import "SDTimeLineCellModel.h"
 #import "MLLinkLabel.h"
 
 #define MLLinkLabelIdentifier_isLike @"MLLinkLabelIdentifier_isLike"
@@ -94,16 +93,16 @@
     UIImage *bgImage = [UIImage imageNamed:@"LikeCmtBg"];
     bgImage = [bgImage resizableImageWithCapInsets:UIEdgeInsetsMake(40, 40, 30, 30) resizingMode:UIImageResizingModeStretch];
     _bgImageView.image = bgImage;
-    self.likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : YJDarkModeFactory.shareInstance.momentTitleColor};
-    self.likeLableBottomLine.backgroundColor = YJDarkModeFactory.shareInstance.momentSepratorColor;
+    self.likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : SPDarkModeUtil.momentTitleColor};
+    self.likeLableBottomLine.backgroundColor = SPDarkModeUtil.momentSepratorColor;
     
     [self.commentLabelsArray enumerateObjectsUsingBlock:^(MLLinkLabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.linkTextAttributes = @{NSForegroundColorAttributeName:YJDarkModeFactory.shareInstance.momentTitleColor};
+        obj.linkTextAttributes = @{NSForegroundColorAttributeName:SPDarkModeUtil.momentTitleColor};
         obj.activeLinkTextAttributes = @{NSBackgroundColorAttributeName:[UIColor colorWithWhite:0.215 alpha:0.300],
-                                         NSForegroundColorAttributeName:YJDarkModeFactory.shareInstance.momentTitleColor};
+                                         NSForegroundColorAttributeName:SPDarkModeUtil.momentTitleColor};
     }];
     
-    self.likeLabel.activeLinkTextAttributes = @{NSBackgroundColorAttributeName:[UIColor colorWithWhite:0.215 alpha:0.300],NSForegroundColorAttributeName:YJDarkModeFactory.shareInstance.sectionTitleColor};
+    self.likeLabel.activeLinkTextAttributes = @{NSBackgroundColorAttributeName:[UIColor colorWithWhite:0.215 alpha:0.300],NSForegroundColorAttributeName:SPDarkModeUtil.normalTextColor};
 }
 
 - (void)setCommentItemsArray:(NSArray *)commentItemsArray
@@ -133,9 +132,9 @@
         label.attributedText = model.attributedContent;
         
         MLLink *link = [MLLink linkWithType:MLLinkTypeNone value:@(i).stringValue range:NSMakeRange(model.attributedContent.string.length - model.comment.length, model.comment.length)];
-        link.linkTextAttributes = @{NSForegroundColorAttributeName:YJDarkModeFactory.shareInstance.xinyuTextColor};
+        link.linkTextAttributes = @{NSForegroundColorAttributeName:SPDarkModeUtil.normalTextColor};
         link.activeLinkTextAttributes = @{NSBackgroundColorAttributeName:[UIColor colorWithWhite:0.215 alpha:0.300],
-                                          NSForegroundColorAttributeName:YJDarkModeFactory.shareInstance.xinyuTextColor};
+                                          NSForegroundColorAttributeName:SPDarkModeUtil.normalTextColor};
         [label addLink:link];
     }
 }
@@ -275,22 +274,22 @@
     return attString;
 }
 
-/// 二级回复（暂不用）
-/// @param model 评论实体
-- (NSMutableAttributedString *)generateAttributedStringWithCommentItemModel:(SDTimeLineCellCommentItemModel *)model
-{
-    NSString *text = model.firstUserName;
-    if (model.secondUserName.length) {
-        text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
-    }
-    text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    [attString setAttributes:@{NSLinkAttributeName : model.firstUserId} range:[text rangeOfString:model.firstUserName]];
-    if (model.secondUserName) {
-        [attString setAttributes:@{NSLinkAttributeName : model.secondUserId} range:[text rangeOfString:model.secondUserName]];
-    }
-    return attString;
-}
+///// 二级回复（暂不用）
+///// @param model 评论实体
+//- (NSMutableAttributedString *)generateAttributedStringWithCommentItemModel:(SDTimeLineCellCommentItemModel *)model
+//{
+//    NSString *text = model.firstUserName;
+//    if (model.secondUserName.length) {
+//        text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
+//    }
+//    text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
+//    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
+//    [attString setAttributes:@{NSLinkAttributeName : model.firstUserId} range:[text rangeOfString:model.firstUserName]];
+//    if (model.secondUserName) {
+//        [attString setAttributes:@{NSLinkAttributeName : model.secondUserId} range:[text rangeOfString:model.secondUserName]];
+//    }
+//    return attString;
+//}
 
 #pragma mark - MLLinkLabelDelegate
 - (void)didClickLink:(MLLink *)link linkText:(NSString *)linkText linkLabel:(MLLinkLabel *)linkLabel

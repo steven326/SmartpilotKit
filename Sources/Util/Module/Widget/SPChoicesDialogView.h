@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^clickConfirmHandler)(void);
 
 /// 类型
-@property (nonatomic, assign) YJChoicesDialogViewType type;
+@property (nonatomic, assign) SPChoicesDialogViewType type;
 /// 文字对齐方式
 @property (nonatomic, assign) NSTextAlignment contentAlignment;
 /// 只有确定

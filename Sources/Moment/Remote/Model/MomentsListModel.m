@@ -8,9 +8,6 @@
 
 #import "MomentsListModel.h"
 
-extern const CGFloat contentLabelFontSize;
-extern CGFloat maxContentLabelHeight;
-
 @implementation MomentsPicturesModel
 
 @end
@@ -23,10 +20,14 @@ extern CGFloat maxContentLabelHeight;
 
 @end
 
+extern const CGFloat contentLabelFontSize;
+extern CGFloat maxContentLabelHeight;
+
 @implementation MomentsListModel
 {
     CGFloat _lastContentWidth;
 }
+
 + (nullable NSDictionary<NSString *, id> *)modelContainerPropertyGenericClass {
     return @{
              @"pictures":[MomentsPicturesModel class],

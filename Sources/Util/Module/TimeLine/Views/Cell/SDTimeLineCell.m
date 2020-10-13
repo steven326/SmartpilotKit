@@ -28,11 +28,12 @@
 
 #import "SDTimeLineCell.h"
 #import "UIView+SDAutoLayout.h"
-#import "SDTimeLineCellModel.h"
 #import "SDTimeLineCellCommentView.h"
 #import "SDTimeLineCellOperationMenu.h"
 #import "UIImageView+WebCache.h"
 #import "YYText.h"
+#import "SPMomentListViewController.h"
+//@class SPMomentListViewController;
 
 const CGFloat contentLabelFontSize = 16;
 CGFloat maxContentLabelHeight = 0; // 根据具体font而定
@@ -55,6 +56,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDWeiXinPhotoContainerView *_picContainerView;
     SDTimeLineCellCommentView *_commentView;
     SDTimeLineCellOperationMenu *_operationMenu;
+}
+
++ (NSString *)cellId
+{
+    return NSStringFromClass(self.class);
 }
 
 - (void)dealloc
@@ -265,8 +271,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     /// 评论
     [_operationMenu setCommentButtonClickedOperation:^{
         @strongify(self);
-        if ([self.delegate respondsToSelector:@selector(didClickcCommentButtonInCell:)]) {
-            [self.delegate didClickcCommentButtonInCell:self];
+        if ([self.delegate respondsToSelector:@selector(didClickCommentButtonInCell:)]) {
+            [self.delegate didClickCommentButtonInCell:self];
         }
     }];
     
@@ -334,7 +340,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _operationMenu.is_like = momentsListModel.is_like;
     
     /// 判断用户是否有权限删除港航圈
-    if ([momentsListModel.user_id isEqualToString:YJUserInstance.shareInstance.userModel.user_id]) {
+    if ([momentsListModel.user_id isEqualToString:SPMomentConfig.shared.userId]
+        || SPMomentConfig.shared.hasDeletePostPrivilage) {
         _deleteButton.hidden = NO;
     }
     else {
@@ -360,8 +367,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [attribute yy_setLineSpacing:2 range:NSMakeRange(0, attribute.length)];
     [attribute yy_setAlignment:NSTextAlignmentJustified range:NSMakeRange(0, attribute.length)];
     [attribute yy_setTextHighlightRange:NSMakeRange(0, attribute.length)
-                                  color:YJDarkModeFactory.shareInstance.xinyuTextColor
-                        backgroundColor:YJDarkModeFactory.shareInstance.xinyuTextHighlightColor
+                                  color:SPDarkModeUtil.normalTextColor
+                        backgroundColor:SPDarkModeUtil.normalTextHighlightColor
                                userInfo:nil
                               tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         NSLog(@"tapAction");
@@ -420,8 +427,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _operationButton.hidden = YES;
     
     /// 判断用户是否有权限删除港航圈
-    if ([YJUserInstance checkPrivilegeWithString:YJString_Snapshot_Delete]
-        || [snapshotsListModel.user_id isEqualToString:YJUserInstance.shareInstance.userModel.user_id]) {
+    if ([snapshotsListModel.user_id isEqualToString:SPMomentConfig.shared.userId]
+        || SPMomentConfig.shared.hasDeletePostPrivilage) {
         _deleteButton.hidden = NO;
     }
     else {
@@ -435,8 +442,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [attribute yy_setLineSpacing:2 range:NSMakeRange(0, attribute.length)];
     [attribute yy_setAlignment:NSTextAlignmentJustified range:NSMakeRange(0, attribute.length)];
     [attribute yy_setTextHighlightRange:NSMakeRange(0, attribute.length)
-                                  color:YJDarkModeFactory.shareInstance.xinyuTextColor
-                        backgroundColor:YJDarkModeFactory.shareInstance.xinyuTextHighlightColor
+                                  color:SPDarkModeUtil.normalTextColor
+                        backgroundColor:SPDarkModeUtil.normalTextHighlightColor
                                userInfo:nil
                               tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         NSLog(@"tapAction");
@@ -479,14 +486,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 
 - (void)reloadThemeStyle
 {
-    _nameLable.textColor = YJDarkModeFactory.shareInstance.momentTitleColor;
-    _subTitleLabel.textColor = YJDarkModeFactory.shareInstance.momentSubTitleColor;
-    _contentLabel.textColor = YJDarkModeFactory.shareInstance.xinyuTextColor;
-    _locationLabel.textColor = YJDarkModeFactory.shareInstance.momentTitleColor;
-    [_reportButton setTitleColor:YJDarkModeFactory.shareInstance.momentTitleColor forState:UIControlStateNormal];
-    [_moreButton setTitleColor:YJDarkModeFactory.shareInstance.blueDarkmodeColor forState:UIControlStateNormal];
-    _lineView.backgroundColor = YJDarkModeFactory.shareInstance.momentSepratorColor;
-    self.contentView.backgroundColor = YJDarkModeFactory.shareInstance.momentCellBackgroundColor;
+    _nameLable.textColor = SPDarkModeUtil.momentTitleColor;
+    _subTitleLabel.textColor = SPDarkModeUtil.momentSubTitleColor;
+    _contentLabel.textColor = SPDarkModeUtil.normalTextColor;
+    _locationLabel.textColor = SPDarkModeUtil.momentTitleColor;
+    [_reportButton setTitleColor:SPDarkModeUtil.momentTitleColor forState:UIControlStateNormal];
+    [_moreButton setTitleColor:SPDarkModeUtil.blueDarkmodeColor forState:UIControlStateNormal];
+    _lineView.backgroundColor = SPDarkModeUtil.momentSepratorColor;
+    self.contentView.backgroundColor = SPDarkModeUtil.momentCellBackgroundColor;
 }
 
 - (CGFloat)getContentHeight:(NSAttributedString *)attributeContent

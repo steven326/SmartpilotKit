@@ -41,7 +41,7 @@
 
 /// 点击评论回调
 /// @param cell 当前Cell对象
-- (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
+- (void)didClickCommentButtonInCell:(UITableViewCell *)cell;
 
 /// 点击头像回调
 /// @param cell 当前Cell对象
@@ -88,6 +88,8 @@
 @class SDTimeLineCellModel;
 
 @interface SDTimeLineCell : UITableViewCell
+
++ (NSString *)cellId;
 
 /// 代理
 @property (nonatomic, weak) id<SDTimeLineCellDelegate> delegate;
