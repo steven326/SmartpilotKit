@@ -236,17 +236,12 @@
 		F63746AA2531A2850004FBA3 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				F6FCAB8125304C0C00F6453D /* SDAutoLayout */,
+				F6FCAB3025304BF800F6453D /* TimeLine */,
 				F63746AB2531A2ED0004FBA3 /* SPMomentMapViewController.h */,
 				F63746AC2531A2ED0004FBA3 /* SPMomentMapViewController.m */,
 			);
 			path = Module;
-			sourceTree = "<group>";
-		};
-		F63746B02531A4B80004FBA3 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		F68F008225245B5800044A0B = {
@@ -338,8 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				F6CBDFA525357EC4004A787B /* Widget */,
-				F6FCAB8125304C0C00F6453D /* SDAutoLayout */,
-				F6FCAB3025304BF800F6453D /* TimeLine */,
 				F6FCAB02252FF87900F6453D /* AESCipher */,
 				F68F00B92524750100044A0B /* LCActionSheet */,
 			);
@@ -458,7 +451,6 @@
 		F6FCAB3425304BF800F6453D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F63746B02531A4B80004FBA3 /* Base */,
 				F63746912531854D0004FBA3 /* ChatInputBar */,
 				F6FCAB3525304BF800F6453D /* OperationMenu */,
 				F6FCAB3825304BF800F6453D /* CommentView */,
@@ -603,11 +595,11 @@
 		F6FCAB8125304C0C00F6453D /* SDAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
+				F6FCAB8425304C0C00F6453D /* SDAutoLayout.h */,
+				F6FCAB8625304C0C00F6453D /* UIView+SDAutoLayout.h */,
 				F6FCAB8225304C0C00F6453D /* UIView+SDAutoLayout.m */,
 				F6FCAB8325304C0C00F6453D /* UITableView+SDAutoTableViewCellHeight.h */,
-				F6FCAB8425304C0C00F6453D /* SDAutoLayout.h */,
 				F6FCAB8525304C0C00F6453D /* UITableView+SDAutoTableViewCellHeight.m */,
-				F6FCAB8625304C0C00F6453D /* UIView+SDAutoLayout.h */,
 			);
 			path = SDAutoLayout;
 			sourceTree = "<group>";
