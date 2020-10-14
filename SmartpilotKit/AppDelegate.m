@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-#import "SPMomentListViewController.h"
+//#import "SPMomentListViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,9 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[SPMomentListViewController alloc] init];
-    [self.window makeKeyAndVisible];
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window.rootViewController = [[SPMomentListViewController alloc] init];
+//    [self.window makeKeyAndVisible];
     
     return YES;
 }
