@@ -20,9 +20,6 @@
 #define NSLog(FORMAT, ...);
 #endif
 
-/// 判断文字中是否包含表情
-#define IsTextContainFace(text) [text containsString:@"["] &&  [text containsString:@"]"] && [[text substringFromIndex:text.length - 1] isEqualToString:@"]"]
-
 /// Document文件路径
 #define PATH_DOCUMENT [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 
