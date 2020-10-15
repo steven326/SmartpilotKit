@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "SmartpilotKit"
-  spec.version      = "0.0.1"
+  spec.version      = "0.1.0"
   spec.summary      = "智慧港航产品通用组件库"
   spec.homepage     = "https://github.com/steven326/SmartpilotKit"
   spec.license      = "MIT"
