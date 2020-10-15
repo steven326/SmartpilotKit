@@ -8,9 +8,6 @@
 
 #import "YJChatTextView.h"
 
-/// 判断文字中是否包含表情
-#define IsTextContainFace(text) [text containsString:@"["] &&  [text containsString:@"]"] && [[text substringFromIndex:text.length - 1] isEqualToString:@"]"]
-
 @implementation YJChatTextView
 
 @dynamic delegate;
@@ -40,9 +37,14 @@
     [self _removeTextViewNotificationObservers];
 }
 
+- (BOOL)isTextContainFace:(NSString *)text
+{
+    return [text containsString:@"["] && [text containsString:@"]"] && [[text substringFromIndex:text.length - 1] isEqualToString:@"]"];
+}
+
 - (void)deleteBackward
 {
-    if (IsTextContainFace(self.text)) { // 如果text中有表情
+    if ([self isTextContainFace:self.text]) { // 如果text中有表情
         if ([self.delegate respondsToSelector:@selector(textViewDeleteBackward:)]) {
             [self.delegate textViewDeleteBackward:self];
         }
