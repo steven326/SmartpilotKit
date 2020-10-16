@@ -19,9 +19,6 @@
 		F63746B32531A4DB0004FBA3 /* SPBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F63746B22531A4DB0004FBA3 /* SPBaseTableView.m */; };
 		F68F009025245B5900044A0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F68F008F25245B5900044A0B /* AppDelegate.m */; };
 		F68F009625245B5900044A0B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F68F009525245B5900044A0B /* ViewController.m */; };
-		F68F009925245B5900044A0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68F009725245B5900044A0B /* Main.storyboard */; };
-		F68F009B25245B5C00044A0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68F009A25245B5C00044A0B /* Assets.xcassets */; };
-		F68F009E25245B5C00044A0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68F009C25245B5C00044A0B /* LaunchScreen.storyboard */; };
 		F68F00A125245B5C00044A0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F68F00A025245B5C00044A0B /* main.m */; };
 		F68F011425247A8100044A0B /* SPHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F68F011325247A8100044A0B /* SPHTTPSessionManager.m */; };
 		F68F011925247B1100044A0B /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = F68F011725247B1000044A0B /* UIDevice+IdentifierAddition.m */; };
@@ -74,9 +71,6 @@
 		F68F008F25245B5900044A0B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F68F009425245B5900044A0B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F68F009525245B5900044A0B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F68F009825245B5900044A0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F68F009A25245B5C00044A0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F68F009D25245B5C00044A0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F68F009F25245B5C00044A0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F68F00A025245B5C00044A0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F68F00B0252466E300044A0B /* SmartpilotKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartpilotKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,9 +207,6 @@
 				F68F008F25245B5900044A0B /* AppDelegate.m */,
 				F68F009425245B5900044A0B /* ViewController.h */,
 				F68F009525245B5900044A0B /* ViewController.m */,
-				F68F009725245B5900044A0B /* Main.storyboard */,
-				F68F009A25245B5C00044A0B /* Assets.xcassets */,
-				F68F009C25245B5C00044A0B /* LaunchScreen.storyboard */,
 				F68F009F25245B5C00044A0B /* Info.plist */,
 				F68F00A025245B5C00044A0B /* main.m */,
 			);
@@ -350,11 +341,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F68F009E25245B5C00044A0B /* LaunchScreen.storyboard in Resources */,
-				F68F009B25245B5C00044A0B /* Assets.xcassets in Resources */,
 				F6CBDFA92535800B004A787B /* SPChoicesDialogView.xib in Resources */,
 				F6CBDF6D25343E19004A787B /* MomentAsset.xcassets in Resources */,
-				F68F009925245B5900044A0B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,25 +449,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F68F009725245B5900044A0B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F68F009825245B5900044A0B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F68F009C25245B5C00044A0B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F68F009D25245B5C00044A0B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F68F00A225245B5C00044A0B /* Debug */ = {
@@ -598,7 +567,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0DFD65C89D21E6FF78806C9 /* Pods-SmartpilotKit.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XAW95W62X5;
@@ -620,7 +588,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CB894E69A9DE37C55389D60B /* Pods-SmartpilotKit.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XAW95W62X5;
